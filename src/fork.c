@@ -6,20 +6,24 @@ int main(void) {
 
   pid_t pid;
 
+  printf("P ==> My PID is <%ld>\n", (long) getpid());
+
   switch (pid = fork()) {
 
   case -1:
 
     // On error fork() returns -1.
 
-    perror("fork failed");
+    perror("fork() failed");
     exit(EXIT_FAILURE);
 
   case 0:
 
     // On success fork() returns 0 in the child.
 
-    printf(" CHILD: My PID = %ld and PPID = %ld!\n", (long) getpid(), (long) getppid());
+    printf("   C ==> Hello!\n");
+    printf("   C ==> My PID is <%ld>\n", (long) getpid());
+    printf("   C ==> Goodbye!\n");
 
     exit(EXIT_SUCCESS);
 
@@ -27,7 +31,8 @@ int main(void) {
 
     // On success fork() returns the pid of the child to the parent.
 
-    printf("PARENT: My PID = %ld and the PID of my child = %ld!\n", (long) getpid(), (long) pid);
+    printf("P ==> My child got PID <%ld>\n", (long) pid);
+    printf("P ==> Godbye!\n");
 
     exit(EXIT_SUCCESS);
   }
